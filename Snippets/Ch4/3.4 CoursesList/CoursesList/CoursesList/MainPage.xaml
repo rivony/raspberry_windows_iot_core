@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="CoursesList.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CoursesList"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+  <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <ListView x:Name="ListeProduitsLVW" ItemsSource="{Binding ListeVMProduits}" SelectedItem="{Binding ProduitSelectionne, Mode=TwoWay}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <local:ProduitUCTRL Margin="0,8" />
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+    <CommandBar Grid.Row="1">
+      <AppBarToggleButton x:Name="FiltreeAPB" IsChecked="{Binding Filtree, Mode=TwoWay}">
+        <AppBarToggleButton.Icon>
+          <BitmapIcon UriSource="Assets/Filtre.png"/>
+        </AppBarToggleButton.Icon>
+      </AppBarToggleButton>
+      <AppBarButton x:Name="LecteurCodeBarresAPB" IsEnabled="{Binding Ouvert}">
+        <AppBarButton.Icon>
+          <BitmapIcon UriSource="Assets/LecteurCodeBarres.png"/>
+        </AppBarButton.Icon>
+      </AppBarButton>
+      <AppBarButton x:Name="ImprimanteAPB"        IsEnabled="{Binding Connecte}">
+        <AppBarButton.Icon>
+          <BitmapIcon UriSource="Assets/Imprimante.png"/>
+        </AppBarButton.Icon>
+      </AppBarButton>
+    </CommandBar>
+  </Grid>
+</Page>

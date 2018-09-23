@@ -1,0 +1,88 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PiFaceDigitalDemo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Convertisseurs="using:GlobalLIB.Convertisseurs"
+    x:Class="PiFaceDigitalDemo.MainPage"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+  <Page.Resources>
+    <Convertisseurs:NullToBoolConverter x:Key="NullToBoolConverter"/>
+    <Convertisseurs:BoolToCouleurConverter x:Key="BoolToCouleurVerteConverter"  CouleurFalse="Transparent"  CouleurTrue="Lime"/>
+    <Style x:Key="CercleEntreeSTY" TargetType="Ellipse">
+      <Setter Property="Stroke" Value="Black"/>
+    </Style>
+    <Style x:Key="TexteEntreeSTY" TargetType="TextBlock">
+      <Setter Property="TextAlignment" Value="Center"/>
+      <Setter Property="TextLineBounds" Value="TrimToBaseline"/>
+    </Style>
+  </Page.Resources>
+
+  <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ContentControl x:Name="PiFaceDigitalCCT" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="{Binding DataContext, Converter={StaticResource NullToBoolConverter}, RelativeSource={RelativeSource Mode=Self}}">
+      <StackPanel>
+        <TextBlock TextAlignment="Center" Text="{Binding Entrees}"/>
+        <Grid HorizontalAlignment="Center">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="24"/>
+            <ColumnDefinition Width="24"/>
+            <ColumnDefinition Width="24"/>
+            <ColumnDefinition Width="24"/>
+            <ColumnDefinition Width="24"/>
+            <ColumnDefinition Width="24"/>
+            <ColumnDefinition Width="24"/>
+            <ColumnDefinition Width="24"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+          </Grid.RowDefinitions>
+          <Ellipse Grid.Column="0" Style="{StaticResource CercleEntreeSTY}" Fill="{Binding E0, Converter={StaticResource BoolToCouleurVerteConverter}}"/>
+          <Ellipse Grid.Column="1" Style="{StaticResource CercleEntreeSTY}" Fill="{Binding E1, Converter={StaticResource BoolToCouleurVerteConverter}}"/>
+          <Ellipse Grid.Column="2" Style="{StaticResource CercleEntreeSTY}" Fill="{Binding E2, Converter={StaticResource BoolToCouleurVerteConverter}}"/>
+          <Ellipse Grid.Column="3" Style="{StaticResource CercleEntreeSTY}" Fill="{Binding E3, Converter={StaticResource BoolToCouleurVerteConverter}}"/>
+          <Ellipse Grid.Column="4" Style="{StaticResource CercleEntreeSTY}" Fill="{Binding E4, Converter={StaticResource BoolToCouleurVerteConverter}}"/>
+          <Ellipse Grid.Column="5" Style="{StaticResource CercleEntreeSTY}" Fill="{Binding E5, Converter={StaticResource BoolToCouleurVerteConverter}}"/>
+          <Ellipse Grid.Column="6" Style="{StaticResource CercleEntreeSTY}" Fill="{Binding E6, Converter={StaticResource BoolToCouleurVerteConverter}}"/>
+          <Ellipse Grid.Column="7" Style="{StaticResource CercleEntreeSTY}" Fill="{Binding E7, Converter={StaticResource BoolToCouleurVerteConverter}}"/>
+
+          <TextBlock Grid.Column="0" Text="0" Style="{StaticResource TexteEntreeSTY}"/>
+          <TextBlock Grid.Column="1" Text="1" Style="{StaticResource TexteEntreeSTY}"/>
+          <TextBlock Grid.Column="2" Text="2" Style="{StaticResource TexteEntreeSTY}"/>
+          <TextBlock Grid.Column="3" Text="3" Style="{StaticResource TexteEntreeSTY}"/>
+          <TextBlock Grid.Column="4" Text="4" Style="{StaticResource TexteEntreeSTY}"/>
+          <TextBlock Grid.Column="5" Text="5" Style="{StaticResource TexteEntreeSTY}"/>
+          <TextBlock Grid.Column="6" Text="6" Style="{StaticResource TexteEntreeSTY}"/>
+          <TextBlock Grid.Column="7" Text="7" Style="{StaticResource TexteEntreeSTY}"/>
+        </Grid>
+        <TextBlock TextAlignment="Center" Margin="0,20,0,0" Text="{Binding Sorties}"/>
+        <Grid HorizontalAlignment="Center">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <ToggleButton Grid.Column="0" Content="0" Width="40" Height="60" IsChecked="{Binding S0, Mode=TwoWay}"/>
+          <ToggleButton Grid.Column="1" Content="1" Width="40" Height="60" IsChecked="{Binding S1, Mode=TwoWay}"/>
+          <ToggleButton Grid.Column="2" Content="2" Width="40" Height="60" IsChecked="{Binding S2, Mode=TwoWay}"/>
+          <ToggleButton Grid.Column="3" Content="3" Width="40" Height="60" IsChecked="{Binding S3, Mode=TwoWay}"/>
+          <ToggleButton Grid.Column="4" Content="4" Width="40" Height="60" IsChecked="{Binding S4, Mode=TwoWay}"/>
+          <ToggleButton Grid.Column="5" Content="5" Width="40" Height="60" IsChecked="{Binding S5, Mode=TwoWay}"/>
+          <ToggleButton Grid.Column="6" Content="6" Width="40" Height="60" IsChecked="{Binding S6, Mode=TwoWay}"/>
+          <ToggleButton Grid.Column="7" Content="7" Width="40" Height="60" IsChecked="{Binding S7, Mode=TwoWay}"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+          <Button Content="Tout Eteindre" Margin="4,0" Command="{Binding ToutEteindre}"/>
+          <Button Content="Tout Allumer" Margin="4,0" Command="{Binding ToutAllumer}"/>
+          <Button Content="Inverser" Margin="4,0" Command="{Binding Inverser}"/>
+        </StackPanel>
+        <ToggleSwitch x:Name="ChenillardTSW" Header="Chenillard" HorizontalAlignment="Center" Toggled="ChenillardTSW_Toggled"/>
+      </StackPanel>
+    </ContentControl>
+  </Grid>
+</Page>

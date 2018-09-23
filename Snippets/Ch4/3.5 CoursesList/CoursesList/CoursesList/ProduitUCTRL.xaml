@@ -1,0 +1,41 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CoursesList"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Convertisseurs="using:GlobalLIB.Convertisseurs"
+    x:Class="CoursesList.ProduitUCTRL"
+    mc:Ignorable="d"
+    d:DesignHeight="100"
+    d:DesignWidth="500">
+
+<UserControl.Resources>
+  <Convertisseurs:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+</UserControl.Resources>
+<UserControl.Visibility>
+  <Binding Converter="{StaticResource BoolToVisibilityConverter}" Path="Visible"/>
+</UserControl.Visibility>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="1.5*"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="100"/>
+      <ColumnDefinition Width="20"/>
+      <ColumnDefinition Width="80"/>
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Stretch="None" Source="{Binding ImageMiniature}"/>
+    <TextBlock Grid.Column="1" Grid.Row="0" Text="x" VerticalAlignment="Center" TextAlignment="Right" FontFamily="Segoe UI Black" FontSize="18" FontWeight="Black"/>
+    <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Nb}" VerticalAlignment="Center" TextAlignment="Left" FontFamily="Segoe UI Black" FontSize="30" FontWeight="Black" Margin="5,0,0,0"/>
+    <TextBox Grid.Column="3" Grid.Row="0" Text="{Binding Nom, Mode=TwoWay}" VerticalAlignment="Center" FontFamily="Segoe UI Black" FontWeight="Black" FontSize="18" Margin="5,0"/>
+    <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left">
+      <Button Content="+" Margin="2" Command="{Binding PlusUn}"/>
+      <Button Content="-" Margin="2" Command="{Binding MoinsUn}"/>
+    </StackPanel>
+    <TextBlock Grid.Column="3" Grid.Row="2" Text="{Binding CodeBarres}"/>
+  </Grid>
+</UserControl>

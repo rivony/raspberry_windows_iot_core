@@ -1,0 +1,234 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DoMesCenter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Convertisseurs="using:DoMesCenter.Convertisseurs"
+    xmlns:Convertisseurs1="using:GlobalLIB.Convertisseurs"
+    x:Class="DoMesCenter.MainPage"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+  <Page.Resources>
+    <Convertisseurs1:BoolToCouleurConverter x:Key="BoolToCouleurConverter" CouleurFalse="Gray" CouleurTrue="Black" CouleurNull="LightGray"/>
+    <Convertisseurs:PartieFractionnaireConverter x:Key="PartieFractionnaireConverter"/>
+    <Convertisseurs:PartieEntiereConverter x:Key="PartieEntiereConverter"/>
+    <x:Int32 x:Key="2Chiffres">2</x:Int32>
+    <x:Int32 x:Key="3Chiffres">3</x:Int32>
+    <x:Int32 x:Key="4Chiffres">4</x:Int32>
+    <x:Int32 x:Key="5Chiffres">5</x:Int32>
+    <Style x:Key="GroupeValeursSTY" TargetType="StackPanel">
+      <Setter Property="BorderBrush" Value="#FF256487"/>
+      <Setter Property="BorderThickness" Value="4"/>
+    </Style>
+    <Style x:Key="AffichageDigitalBaseGridSTY" TargetType="Grid">
+      <Setter Property="Margin" Value="20"/>
+      <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="AffichageDigitalTemperatureSTY" TargetType="Grid" BasedOn="{StaticResource AffichageDigitalBaseGridSTY}">
+      <Setter Property="Background">
+        <Setter.Value>
+          <ImageBrush Stretch="Uniform" ImageSource="Assets/Temperature.png" Opacity="0.15" AlignmentX="Left" />
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="AffichageDigitalHumiditeSTY" TargetType="Grid" BasedOn="{StaticResource AffichageDigitalBaseGridSTY}">
+      <Setter Property="Background">
+        <Setter.Value>
+          <ImageBrush Stretch="Uniform" ImageSource="Assets/Humidite.png" Opacity="0.15" AlignmentX="Left"/>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="AffichageDigitalPressionSTY" TargetType="Grid" BasedOn="{StaticResource AffichageDigitalBaseGridSTY}">
+      <Setter Property="Background">
+        <Setter.Value>
+          <ImageBrush Stretch="Uniform" ImageSource="Assets/Barometre.png" Opacity="0.15" AlignmentX="Left"/>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="AffichageDigitalLuminositeSTY" TargetType="Grid" BasedOn="{StaticResource AffichageDigitalBaseGridSTY}">
+      <Setter Property="Background">
+        <Setter.Value>
+          <ImageBrush Stretch="Uniform" ImageSource="Assets/Soleil.png" Opacity="0.15" AlignmentX="Left"/>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="AffichageDigitalBatterieSTY" TargetType="Grid" BasedOn="{StaticResource AffichageDigitalBaseGridSTY}">
+      <Setter Property="Background">
+        <Setter.Value>
+          <ImageBrush Stretch="Uniform" ImageSource="Assets/Batterie.png" Opacity="0.15" AlignmentX="Left"/>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style x:Key="AffichageDigitalBaseTextSTY" TargetType="TextBlock">
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+      <Setter Property="TextLineBounds" Value="Tight" />
+      <Setter Property="FontFamily" Value="Assets/digital7Mono.ttf#Digital-7 Mono"/>
+    </Style>
+    <Style x:Key="AffichageDigitalGrandTexteSTY" TargetType="TextBlock" BasedOn="{StaticResource AffichageDigitalBaseTextSTY}">
+      <Setter Property="Grid.RowSpan" Value="2"/>
+      <Setter Property="FontSize" Value="76" />
+      <Setter Property="TextAlignment" Value="Right" />
+    </Style>
+    <Style x:Key="AffichageDigitalPetitTexteSTY" TargetType="TextBlock" BasedOn="{StaticResource AffichageDigitalBaseTextSTY}">
+      <Setter Property="Grid.Column" Value="1" />
+      <Setter Property="Grid.Row" Value="1" />
+      <Setter Property="FontSize" Value="32" />
+    </Style>
+    <Style x:Key="AffichageUniteTexteSTY" TargetType="TextBlock">
+      <Setter Property="Grid.Column" Value="1" />
+      <Setter Property="FontSize" Value="24" />
+      <Setter Property="VerticalAlignment" Value="Top" />
+      <Setter Property="TextLineBounds" Value="Tight" />
+      <Setter Property="FontWeight" Value="Bold"/>
+      <Setter Property="MinWidth" Value="60"/>
+    </Style>
+    <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
+      <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+      <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+      <Setter Property="Background" Value="{ThemeResource GridViewItemBackground}"/>
+      <Setter Property="Foreground" Value="{ThemeResource GridViewItemForeground}"/>
+      <Setter Property="TabNavigation" Value="Local"/>
+      <Setter Property="IsHoldingEnabled" Value="True"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+      <Setter Property="VerticalContentAlignment" Value="Top"/>
+      <Setter Property="Margin" Value="0,0,4,4"/>
+      <Setter Property="MinWidth" Value="{ThemeResource GridViewItemMinWidth}"/>
+      <Setter Property="MinHeight" Value="{ThemeResource GridViewItemMinHeight}"/>
+      <Setter Property="AllowDrop" Value="False"/>
+      <Setter Property="UseSystemFocusVisuals" Value="True"/>
+      <Setter Property="FocusVisualMargin" Value="-2"/>
+      <Setter Property="FocusVisualPrimaryBrush" Value="{ThemeResource GridViewItemFocusVisualPrimaryBrush}"/>
+      <Setter Property="FocusVisualPrimaryThickness" Value="2"/>
+      <Setter Property="FocusVisualSecondaryBrush" Value="{ThemeResource GridViewItemFocusVisualSecondaryBrush}"/>
+      <Setter Property="FocusVisualSecondaryThickness" Value="1"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="GridViewItem">
+            <ListViewItemPresenter CheckBrush="{ThemeResource GridViewItemCheckBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="{ThemeResource GridViewItemCheckMode}" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource GridViewItemCheckBoxBrush}" DragForeground="{ThemeResource GridViewItemDragForeground}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource GridViewItemDragBackground}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusVisualPrimaryBrush="{TemplateBinding FocusVisualPrimaryBrush}" FocusVisualSecondaryThickness="{TemplateBinding FocusVisualSecondaryThickness}" FocusBorderBrush="{ThemeResource GridViewItemFocusBorderBrush}" FocusVisualMargin="{TemplateBinding FocusVisualMargin}" FocusVisualPrimaryThickness="{TemplateBinding FocusVisualPrimaryThickness}" FocusSecondaryBorderBrush="{ThemeResource GridViewItemFocusSecondaryBorderBrush}" FocusVisualSecondaryBrush="{TemplateBinding FocusVisualSecondaryBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Control.IsTemplateFocusTarget="True" PointerOverForeground="{ThemeResource GridViewItemForegroundPointerOver}" PressedBackground="{ThemeResource GridViewItemBackgroundPressed}" PlaceholderBackground="{ThemeResource GridViewItemPlaceholderBackground}" PointerOverBackground="{ThemeResource GridViewItemBackgroundPointerOver}" ReorderHintOffset="{ThemeResource GridViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource GridViewItemBackgroundSelectedPressed}" SelectionCheckMarkVisualEnabled="{ThemeResource GridViewItemSelectionCheckMarkVisualEnabled}" SelectedForeground="{ThemeResource GridViewItemForegroundSelected}" SelectedPointerOverBackground="{ThemeResource GridViewItemBackgroundSelectedPointerOver}" SelectedBackground="{ThemeResource GridViewItemBackgroundSelected}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </Page.Resources>
+
+  <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <TextBlock x:Name="DateHeureTBK" Grid.Row="0" FontSize="70" TextAlignment="Center" FontFamily="Assets/digital7Mono.ttf#Digital-7 Mono" Text="{Binding DateHeureAffichee, FallbackValue=--/--/---- --:--:--}" TextWrapping="Wrap"/>
+    <GridView Grid.Row="1" HorizontalAlignment="Center" ItemContainerStyle="{StaticResource GridViewItemStyle1}">
+      <StackPanel x:Name="SensorTagCC2650SPL" Style="{StaticResource GroupeValeursSTY}" >
+        <Image Stretch="None" Source="Assets/Exterieur.png"/>
+        <Grid x:Name="TemperatureAmbianteExtGRD" Style="{StaticResource AffichageDigitalTemperatureSTY}" MinWidth="280">
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Style="{StaticResource AffichageDigitalGrandTexteSTY}" Text="{Binding TMP007_TemperatureAmbiante, ConverterParameter={StaticResource 2Chiffres}, Converter={StaticResource PartieEntiereConverter}}" Foreground="{Binding TMP007_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Text=" °C" Style="{StaticResource AffichageUniteTexteSTY}"  Foreground="{Binding TMP007_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Style="{StaticResource AffichageDigitalPetitTexteSTY}" Text="{Binding TMP007_TemperatureAmbiante, Converter={StaticResource PartieFractionnaireConverter}}" Foreground="{Binding TMP007_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+        </Grid>
+        <Grid x:Name="TemperatureIRExtGRD" Style="{StaticResource AffichageDigitalTemperatureSTY}" MinWidth="280">
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Style="{StaticResource AffichageDigitalGrandTexteSTY}" Text="{Binding TMP007_TemperatureIR, ConverterParameter={StaticResource 2Chiffres}, Converter={StaticResource PartieEntiereConverter}}" Foreground="{Binding TMP007_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Text=" °C" Style="{StaticResource AffichageUniteTexteSTY}"  Foreground="{Binding TMP007_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Style="{StaticResource AffichageDigitalPetitTexteSTY}" Text="{Binding TMP007_TemperatureIR, Converter={StaticResource PartieFractionnaireConverter}}" Foreground="{Binding TMP007_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+        </Grid>
+        <Grid x:Name="HumiditeExtGRD" Style="{StaticResource AffichageDigitalHumiditeSTY}" MinWidth="280">
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Style="{StaticResource AffichageDigitalGrandTexteSTY}" Text="{Binding HDC1000_Humidite, ConverterParameter={StaticResource 3Chiffres}, Converter={StaticResource PartieEntiereConverter}}" Foreground="{Binding HDC1000_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Text=" %rH" Style="{StaticResource AffichageUniteTexteSTY}"  Foreground="{Binding HDC1000_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Style="{StaticResource AffichageDigitalPetitTexteSTY}" Text="{Binding HDC1000_Humidite, Converter={StaticResource PartieFractionnaireConverter}}" Foreground="{Binding HDC1000_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+        </Grid>
+        <Grid x:Name="PressionExtGRD" Style="{StaticResource AffichageDigitalPressionSTY}" MinWidth="280">
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Style="{StaticResource AffichageDigitalGrandTexteSTY}" Text="{Binding BMP280_Pression, ConverterParameter={StaticResource 4Chiffres}, Converter={StaticResource PartieEntiereConverter}}" Foreground="{Binding BMP280_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Text=" hPa" Style="{StaticResource AffichageUniteTexteSTY}" Foreground="{Binding BMP280_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Style="{StaticResource AffichageDigitalPetitTexteSTY}" Text="{Binding BMP280_Pression, Converter={StaticResource PartieFractionnaireConverter}}" Foreground="{Binding BMP280_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+        </Grid>
+        <Grid x:Name="LuminositeExtGRD" Style="{StaticResource AffichageDigitalLuminositeSTY}" MinWidth="280">
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Style="{StaticResource AffichageDigitalGrandTexteSTY}" Text="{Binding OPT3001_Luminosite, ConverterParameter={StaticResource 5Chiffres}, Converter={StaticResource PartieEntiereConverter}}" Foreground="{Binding OPT3001_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Text=" lx" Style="{StaticResource AffichageUniteTexteSTY}" Foreground="{Binding OPT3001_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Style="{StaticResource AffichageDigitalPetitTexteSTY}" Text="{Binding OPT3001_Luminosite, Converter={StaticResource PartieFractionnaireConverter}}" Foreground="{Binding OPT3001_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+        </Grid>
+        <Grid x:Name="BatterieExtGRD" Style="{StaticResource AffichageDigitalBatterieSTY}" MinWidth="280">
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Style="{StaticResource AffichageDigitalGrandTexteSTY}" Text="{Binding NiveauBatterie, TargetNullValue=---}" Foreground="{Binding Batterie_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Text=" %" Style="{StaticResource AffichageUniteTexteSTY}" Foreground="{Binding Batterie_DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+        </Grid>
+      </StackPanel>
+      <StackPanel x:Name="DHT22SPL" Style="{StaticResource GroupeValeursSTY}">
+        <Image Stretch="None" Source="Assets/Interieur.png"/>
+        <Grid x:Name="TemperatureIntGRD" Style="{StaticResource AffichageDigitalTemperatureSTY}" MinWidth="200">
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Style="{StaticResource AffichageDigitalGrandTexteSTY}" Text="{Binding Temperature, ConverterParameter={StaticResource 2Chiffres}, Converter={StaticResource PartieEntiereConverter}}" Foreground="{Binding DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Text=" °C" Style="{StaticResource AffichageUniteTexteSTY}"  Foreground="{Binding DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Style="{StaticResource AffichageDigitalPetitTexteSTY}" Text="{Binding Temperature, Converter={StaticResource PartieFractionnaireConverter}}" Foreground="{Binding DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+        </Grid>
+        <Grid x:Name="HumiditeIntGRD" Style="{StaticResource AffichageDigitalHumiditeSTY}" MinWidth="200">
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Style="{StaticResource AffichageDigitalGrandTexteSTY}" Text="{Binding Humidite, ConverterParameter={StaticResource 3Chiffres}, Converter={StaticResource PartieEntiereConverter}}" Foreground="{Binding DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Text=" %rH" Style="{StaticResource AffichageUniteTexteSTY}"  Foreground="{Binding DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+          <TextBlock Style="{StaticResource AffichageDigitalPetitTexteSTY}" Text="{Binding Humidite, Converter={StaticResource PartieFractionnaireConverter}}" Foreground="{Binding DerniereLectureReussie, Converter={StaticResource BoolToCouleurConverter}}"/>
+        </Grid>
+      </StackPanel>
+    </GridView>
+  </Grid>
+</Page>
